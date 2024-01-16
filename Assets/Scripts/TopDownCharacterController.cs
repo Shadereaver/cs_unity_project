@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class TopDownCharacterController : MonoBehaviour
 {
     #region Framework Stuff
@@ -22,10 +23,8 @@ public class TopDownCharacterController : MonoBehaviour
     [SerializeField] private float playerMaxSpeed = 100f;
     #endregion
 
+    [SerializeField] float m_Health;
 
-    /// <summary>
-    /// When the script first initialises this gets called, use this for grabbing componenets
-    /// </summary>
     private void Awake()
     {
         //Get the attached components so we can use them later
@@ -33,17 +32,11 @@ public class TopDownCharacterController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    /// <summary>
-    /// Called after Awake(), and is used to initialize variables e.g. set values on the player
-    /// </summary>
     private void Start()
     {
         
     }
 
-    /// <summary>
-    /// When a fixed update loop is called, it runs at a constant rate, regardless of pc perfornamce so physics can be calculated properly
-    /// </summary>
     private void FixedUpdate()
     {
         //Set the velocity to the direction they're moving in, multiplied
@@ -51,9 +44,6 @@ public class TopDownCharacterController : MonoBehaviour
         rb.velocity = playerDirection * (playerSpeed * playerMaxSpeed) * Time.fixedDeltaTime;
     }
 
-    /// <summary>
-    /// When the update loop is called, it runs every frame, ca run more or less frequently depending on performance. Used to catch changes in variables or input.
-    /// </summary>
     private void Update()
     {
         // read input from WASD keys
@@ -70,6 +60,7 @@ public class TopDownCharacterController : MonoBehaviour
             //And set the speed to 1, so they move!
             playerSpeed = 1f;
         }
+
         else
         {
             //Was the input just cancelled (released)? If so, set
@@ -83,8 +74,17 @@ public class TopDownCharacterController : MonoBehaviour
         // Was the fire button pressed (mapped to Left mouse button or gamepad trigger)
         if (Input.GetButtonDown("Fire1"))
         {
-            //Shoot (well debug for now)
-            Debug.Log($"Shoot! {Time.time}", gameObject);
+            
         }
+    }
+
+    public void damage(float damage)
+    {
+        Debug.Log(damage);
+
+        m_Health -= damage;
+
+        if (m_Health < 0f)
+            Debug.Log("Dead");
     }
 }
