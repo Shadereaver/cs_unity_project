@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ public class WeaponSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(m_Projectile.m_damage);
+        
     }
 }
 

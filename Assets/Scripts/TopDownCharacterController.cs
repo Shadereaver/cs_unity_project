@@ -26,7 +26,6 @@ public class TopDownCharacterController : MonoBehaviour
 
     [SerializeField] float m_Health;
 
-    WeaponSystem m_Weapon;
 
 
     [SerializeField] float m_AttackSpeed;
@@ -51,7 +50,6 @@ public class TopDownCharacterController : MonoBehaviour
     {
         m_AttackTimer = 0;
         m_Bullets = m_ClipSize;
-        m_Weapon = new WeaponSystem();
     }
 
     private void FixedUpdate()
@@ -94,7 +92,6 @@ public class TopDownCharacterController : MonoBehaviour
         // Was the fire button pressed (mapped to Left mouse button or gamepad trigger)
         if (Input.GetButtonDown("Fire2"))
         {
-            m_Weapon = new test();
         }
 
         if (Input.GetButtonDown("Fire1"))
@@ -121,11 +118,11 @@ public class TopDownCharacterController : MonoBehaviour
 
     public void damage(float damage)
     {
-        Debug.Log(damage);
+        Debug.Log($"Damage: {damage}");
 
         m_Health -= damage;
 
-        if (m_Health < 0f)
+        if (m_Health <= 0f)
             Debug.Log("Dead");
     }
 
