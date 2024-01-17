@@ -128,6 +128,6 @@ public class TopDownCharacterController : MonoBehaviour
 
     void fire()
     {
-        Instantiate(m_BulletPrefab, transform.position, Quaternion.identity).AddForce(m_WorldMousePos * m_BulletSpeed, ForceMode2D.Impulse);
+        Instantiate(m_BulletPrefab, transform.position, Quaternion.identity).AddForce(m_WorldMousePos.normalized * m_BulletSpeed, ForceMode2D.Impulse);
     }
 }

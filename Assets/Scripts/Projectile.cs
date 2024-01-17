@@ -6,15 +6,8 @@ public class Projectile : MonoBehaviour
 {
     public float m_damage;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnBecameInvisible()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Destroy(gameObject);
     }
 }
