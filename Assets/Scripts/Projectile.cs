@@ -2,29 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponSystem : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
-    public Projectile m_Projectile;
-
-
+    public float m_damage;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(m_Projectile.m_damage);
-    }
-}
-
-public class test : WeaponSystem
-{
-    void Start()
-    {
-        m_Projectile.m_damage = 100;
+        
     }
 }
