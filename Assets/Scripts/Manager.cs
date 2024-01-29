@@ -1,0 +1,101 @@
+using System;
+using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class Manager : MonoBehaviour
+{
+    public static Manager Instance;
+
+    [SerializeField] GameObject m_LoadScreen;
+    [SerializeField] Image m_LoadBar;
+    [SerializeField] TextMeshProUGUI m_LoadPercent;
+
+    public UnityEvent EnterHub;
+
+    int m_CurrentSceneIndex;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void Start()
+    {
+        m_LoadPercent.text = "0%";
+        m_LoadBar.fillAmount = 0;
+        m_CurrentSceneIndex = 2;
+        StartCoroutine(AsyncLoad(2, SetActiveAndComplete));
+    }
+
+    public void Load(int id)
+    {
+        StartCoroutine(AsyncLoad(id, Complete));
+    }
+
+    public void Unload(int id)
+    {
+        StartCoroutine(AsyncUnLoad(SceneManager.GetSceneByBuildIndex(id)));
+    }
+
+    public void ChangeScene(int id)
+    {
+        StartCoroutine(AsyncUnLoad(SceneManager.GetActiveScene()));
+        m_CurrentSceneIndex = id;
+        StartCoroutine(AsyncLoad(id, SetActiveAndComplete));
+    }
+
+    void SetActiveAndComplete(AsyncOperation operation)
+    {
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(m_CurrentSceneIndex));
+        Complete(operation);
+    }
+
+    void Complete(AsyncOperation operation)
+    {
+        if (m_CurrentSceneIndex == 3)
+            EnterHub.Invoke();
+
+        m_LoadScreen.SetActive(false);
+        m_LoadBar.fillAmount = 0;
+        m_LoadPercent.text = "0%";       
+    }
+
+    IEnumerator AsyncLoad(int SceneIndex, Action<AsyncOperation> func)
+    {
+        m_LoadScreen.SetActive(true);
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneIndex, LoadSceneMode.Additive);
+
+        asyncLoad.allowSceneActivation = false;
+        asyncLoad.completed += func;
+
+        do
+        {
+            m_LoadBar.fillAmount = asyncLoad.progress;
+            m_LoadPercent.text = $"{(int)(asyncLoad.progress * 100)}%";
+            yield return null;
+        } while (asyncLoad.progress < 0.9f);
+        asyncLoad.allowSceneActivation = true;
+    }
+
+    IEnumerator AsyncUnLoad(Scene SceneIndex)
+    {
+        AsyncOperation asyncUnLoad = SceneManager.UnloadSceneAsync(SceneIndex);
+
+        while (!asyncUnLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+}

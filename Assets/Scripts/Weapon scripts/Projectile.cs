@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Projectile : MonoBehaviour
+{
+    public float m_Damage;
+
+    void Awake()
+    {
+        if (gameObject.GetComponent<Rigidbody2D>() == null)
+            gameObject.AddComponent<Rigidbody2D>().gravityScale = 0;
+
+        if (gameObject.GetComponent<CircleCollider2D>() == null)
+            gameObject.AddComponent<CircleCollider2D>().isTrigger = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        collision.gameObject.GetComponent<IDamage>()?.Damage(m_Damage);
+    }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+}

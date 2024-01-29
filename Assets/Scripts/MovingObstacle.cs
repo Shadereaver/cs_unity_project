@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovingObstacle : MonoBehaviour
@@ -8,16 +5,15 @@ public class MovingObstacle : MonoBehaviour
     [SerializeField] Transform m_StartPoint;
     [SerializeField] Transform m_EndPoint;
     [SerializeField] int m_MoveSpeed;
+    [SerializeField] int m_Damage;
 
     Transform m_Target;
 
-    // Start is called before the first frame update
     void Start()
     {
         m_Target = m_StartPoint;
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, m_Target.position, m_MoveSpeed * Time.deltaTime);
@@ -31,8 +27,7 @@ public class MovingObstacle : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
-            other.gameObject.SendMessage("damage", 10);
+        other.gameObject.GetComponent<IDamage>()?.Damage(m_Damage);
     }
 
     void ChangeTarget()
