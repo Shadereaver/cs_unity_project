@@ -119,6 +119,7 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
 
         if (m_Health <= 0f)
         { 
+            VFXManager.instance.SpawnExplosion(transform.position);
             m_PlayerUI.Dead();
             StartCoroutine(DeathReset());
         }
@@ -155,9 +156,9 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
 
     IEnumerator DeathReset()
     {
-        Pause();
+        
         yield return new WaitForSecondsRealtime(5);
-        Pause();
+        
         Manager.Instance.ChangeScene(3);
     }
 }

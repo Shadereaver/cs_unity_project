@@ -11,6 +11,7 @@ public class Manager : MonoBehaviour
     public static Manager Instance;
 
     [SerializeField] GameObject m_LoadScreen;
+    [SerializeField] GameObject m_DebugMenu;
     [SerializeField] Image m_LoadBar;
     [SerializeField] TextMeshProUGUI m_LoadPercent;
 
@@ -69,6 +70,37 @@ public class Manager : MonoBehaviour
         m_LoadScreen.SetActive(false);
         m_LoadBar.fillAmount = 0;
         m_LoadPercent.text = "0%";       
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+            m_DebugMenu.SetActive(!m_DebugMenu.activeSelf);
+    }
+
+    public void DebugChangeScene(int scene)
+    {
+        scene += 2;
+
+        if (scene == m_CurrentSceneIndex)
+            return;
+
+        if (m_CurrentSceneIndex == 2)
+        {
+            ChangeScene(scene);
+            Load(1);
+        }
+
+        else if (scene == 2)
+        {
+            Unload(1);
+            ChangeScene(scene);
+        }
+
+        else
+        {
+            ChangeScene(scene);
+        }
     }
 
     IEnumerator AsyncLoad(int SceneIndex, Action<AsyncOperation> func)
