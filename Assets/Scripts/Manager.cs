@@ -15,11 +15,9 @@ public class Manager : MonoBehaviour
     [SerializeField] Image m_LoadBar;
     [SerializeField] TextMeshProUGUI m_LoadPercent;
 
-    public UnityEvent EnterHub;
-
     int m_CurrentSceneIndex;
 
-    private void Awake()
+    void Awake()
     {
         if (Instance == null)
         {
@@ -64,15 +62,12 @@ public class Manager : MonoBehaviour
 
     void Complete(AsyncOperation operation)
     {
-        if (m_CurrentSceneIndex == 3)
-            EnterHub.Invoke();
-
         m_LoadScreen.SetActive(false);
         m_LoadBar.fillAmount = 0;
         m_LoadPercent.text = "0%";       
     }
 
-    private void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
             m_DebugMenu.SetActive(!m_DebugMenu.activeSelf);

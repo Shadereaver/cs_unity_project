@@ -8,7 +8,7 @@ public class VFXManager : MonoBehaviour
 
     [SerializeField] GameObject m_Explosion;
 
-    private void Awake()
+    void Awake()
     {
         if (instance == null)
             instance = this;

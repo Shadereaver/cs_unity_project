@@ -1565,7 +1565,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1389186391
 RectTransform:
@@ -2559,9 +2559,6 @@ MonoBehaviour:
   m_DebugMenu: {fileID: 1389186387}
   m_LoadBar: {fileID: 1422341314}
   m_LoadPercent: {fileID: 1533578446}
-  EnterHub:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &2063186336
 Transform:
   m_ObjectHideFlags: 0

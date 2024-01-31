@@ -15,13 +15,13 @@ public class Projectile : MonoBehaviour
             gameObject.AddComponent<CircleCollider2D>().isTrigger = true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         collision.gameObject.GetComponent<IDamage>()?.Damage(m_Damage);
         Destroy(gameObject);
     }
 
-    private void OnBecameInvisible()
+    void OnBecameInvisible()
     {
         Destroy(gameObject);
     }

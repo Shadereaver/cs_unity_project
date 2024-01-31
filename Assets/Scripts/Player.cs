@@ -36,31 +36,30 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
     public UnityEvent PrimaryFire  {get;} = new UnityEvent();
     public UnityEvent SecondaryFire {get;} = new UnityEvent();
 
-    private void Awake()
+    void Awake()
     {
         Time.timeScale = 1f;
 
         //Get the attached components so we can use them later
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
-        Manager.Instance.EnterHub.AddListener(EnterHub);
     }
 
-    private void Start()
+    void Start()
     {
         m_bPaused = false;
-        m_bWeaponSafty = true;
+        m_bWeaponSafty = false;
+        m_WeaponRef = Instantiate(m_WeaponPrefab, transform).gameObject;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         //Set the velocity to the direction they're moving in, multiplied
         //by the speed they're moving
         rb.velocity = playerDirection.normalized * (playerSpeed * playerMaxSpeed) * Time.fixedDeltaTime;
     }
 
-    private void Update()
+    void Update()
     {
         // read input from WASD keys
         playerDirection.x = Input.GetAxis("Horizontal");
@@ -133,7 +132,7 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
         Time.timeScale = m_bPaused ? 0f : 1f;
     }
 
-    public void EnterHub()
+    public void EnterSafe()
     {
         if (m_WeaponRef != null)
             Destroy(m_WeaponRef);
@@ -144,7 +143,7 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
         m_Light.gameObject.SetActive(false);
     }
 
-    public void ExitHub()
+    public void ExitSafe()
     {
         m_WeaponRef = Instantiate(m_WeaponPrefab, transform).gameObject;
 
