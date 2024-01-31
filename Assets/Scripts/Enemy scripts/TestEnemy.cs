@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] Transform m_Target;
+    Transform m_Target;
     NavMeshAgent m_Agent;
 
     void Awake()
@@ -13,13 +13,16 @@ public class Enemy : MonoBehaviour
         m_Agent = GetComponent<NavMeshAgent>();
     }
 
-    void Start()
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        m_Target = collision.gameObject.GetComponent<Player>()?.transform;
     }
 
     void Update()
     {
-        m_Agent.SetDestination(m_Target.position);
+        if (m_Target != null)
+        {
+            m_Agent.SetDestination(m_Target.position);
+        }
     }
 }
