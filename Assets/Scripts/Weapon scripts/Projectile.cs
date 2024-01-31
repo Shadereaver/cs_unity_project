@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     public float m_Damage;
 
-    void Awake()
+    void Reset()
     {
         if (gameObject.GetComponent<Rigidbody2D>() == null)
             gameObject.AddComponent<Rigidbody2D>().gravityScale = 0;
@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         collision.gameObject.GetComponent<IDamage>()?.Damage(m_Damage);
+        Destroy(gameObject);
     }
 
     private void OnBecameInvisible()

@@ -3,7 +3,6 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] GameObject m_SettingsPanel;
-    bool m_ShowSettings = false;
 
     public void NewGame()
     {
@@ -18,8 +17,7 @@ public class MainMenu : MonoBehaviour
 
     public void ToggleSettings()
     {
-        m_ShowSettings = !m_ShowSettings;
-        m_SettingsPanel.SetActive(m_ShowSettings);
+        m_SettingsPanel.SetActive(!m_SettingsPanel.activeSelf);
     }
 
     public void Exit()
