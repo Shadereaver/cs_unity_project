@@ -56,7 +56,7 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
     {
         //Set the velocity to the direction they're moving in, multiplied
         //by the speed they're moving
-        rb.velocity = playerDirection.normalized * (playerSpeed * playerMaxSpeed) * Time.fixedDeltaTime;
+        rb.velocity = (playerSpeed * playerMaxSpeed) * Time.fixedDeltaTime * playerDirection.normalized;
     }
 
     void Update()
@@ -119,7 +119,7 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
         if (m_Health <= 0f)
         { 
             GetComponent<SpriteRenderer>().enabled = false;
-            VFXManager.instance.SpawnExplosion(transform.position);
+            VFXManager.Instance.SpawnExplosion(transform.position);
             m_PlayerUI.Dead();
             StartCoroutine(DeathReset());
         }

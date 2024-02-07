@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class VFXManager : MonoBehaviour
 {
-    public static VFXManager instance;
+    public static VFXManager Instance;
 
     [SerializeField] GameObject m_Explosion;
 
     void Awake()
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
 
         else
             Destroy(gameObject);
