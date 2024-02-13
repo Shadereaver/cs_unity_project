@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7947177217954650757}
   - component: {fileID: 8652923347561273909}
   m_Layer: 0
-  m_Name: TestWeapon
+  m_Name: PlayerWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,9 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4424630372e8d40b4c1126e8d28556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Damage: 10
+  m_Damage: 5
   m_Range: 10
   m_AttackSpeed: 2
+  m_Host:
+    serializedVersion: 2
+    m_Bits: 64
   m_Projectile: {fileID: 4536020495857932615, guid: 7fd68d4bdfd7f5744951a6408cff60c8, type: 3}
   m_ProjectileSpeed: 5
 --- !u!212 &8652923347561273909

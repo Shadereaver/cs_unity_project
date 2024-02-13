@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamage
 {
     [SerializeField] Collider2D m_AttackRadius;
+    [SerializeField] float m_MaxHealth;
 
+    float m_Health;
     Transform m_Target;
     NavMeshAgent m_Agent;
     bool m_CoolDown = false;
@@ -15,6 +17,11 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         m_Agent = GetComponent<NavMeshAgent>();
+    }
+
+    void Start()
+    {
+        m_Health = m_MaxHealth;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -43,7 +50,25 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(CoolDown());
 
-            collision.GetComponent<IDamage>()?.Damage(10);
+            if (collision.GetComponent<IDamage>() != null)
+            {
+                collision.GetComponent<IDamage>()?.Damage(10);
+            }
+        }
+    }
+
+    public void Damage(float damage)
+    {
+        m_Health -= damage;
+
+        if (m_Health < 0) 
+        {
+            Destroy(gameObject);
+        }
+
+        if (m_Health > m_MaxHealth)
+        {
+            m_Health = m_MaxHealth;
         }
     }
 

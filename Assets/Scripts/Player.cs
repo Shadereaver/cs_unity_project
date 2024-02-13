@@ -25,10 +25,11 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
     #endregion
 
     [SerializeField] PlayerUI m_PlayerUI;
-    [SerializeField] float m_Health;
+    [SerializeField] float m_MaxHealth;
     [SerializeField] WeaponSystem m_WeaponPrefab;
     [SerializeField] Light2D m_Light;
 
+    float m_Health;
     GameObject m_WeaponRef;
     bool m_bPaused;
     bool m_bWeaponSafty;
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
         m_bPaused = false;
         m_bWeaponSafty = false;
         m_WeaponRef = Instantiate(m_WeaponPrefab, transform).gameObject;
+        m_Health = m_MaxHealth;
     }
 
     void FixedUpdate()
@@ -122,6 +124,11 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
             VFXManager.Instance.SpawnExplosion(transform.position);
             m_PlayerUI.Dead();
             StartCoroutine(DeathReset());
+        }
+
+        if (m_Health > m_MaxHealth)
+        {
+            m_Health = m_MaxHealth;
         }
 
         m_PlayerUI.HealthUpdate(m_Health);

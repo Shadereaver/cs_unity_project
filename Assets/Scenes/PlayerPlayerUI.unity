@@ -1749,7 +1749,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 991693094921136743, guid: a213efc43b1f1e74caf091e86d45feed, type: 3}
+  m_Sprite: {fileID: 3785784146384260830, guid: 8c0eb98dc27a0b644a93adaf9c49885a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1822,7 +1822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMaxSpeed: 200
   m_PlayerUI: {fileID: 529074100}
-  m_Health: 100
+  m_MaxHealth: 100
   m_WeaponPrefab: {fileID: 7947177217954650757, guid: 51fc379c93b1a224da4ab8f48094614b, type: 3}
   m_Light: {fileID: 604319283}
 --- !u!4 &1739795013
