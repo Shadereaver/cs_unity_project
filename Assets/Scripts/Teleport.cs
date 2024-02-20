@@ -4,6 +4,6 @@ public class Teleport : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Manager.Instance.ChangeScene(4);
+        LevelManager.Instance.ChangeScene(4);
     }
 }

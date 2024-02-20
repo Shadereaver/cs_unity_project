@@ -168,6 +168,6 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
         Time.timeScale = 1f;
         GetComponent<SpriteRenderer>().enabled = true;
 
-        Manager.Instance.ChangeScene(3);
+        LevelManager.Instance.ChangeScene(3);
     }
 }

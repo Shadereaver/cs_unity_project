@@ -6,8 +6,8 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
-        Manager.Instance.ChangeScene(3);
-        Manager.Instance.Load(1);
+        LevelManager.Instance.ChangeScene(3);
+        LevelManager.Instance.Load(1);
     }
 
     public void LoadSave()
