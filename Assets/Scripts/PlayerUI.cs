@@ -25,8 +25,8 @@ public class PlayerUI : MonoBehaviour
 
     public void Exit()
     {
-        LevelManager.Instance.Unload(1);
-        LevelManager.Instance.ChangeScene(2);
+        LevelManager.Unload();
+        LevelManager.ChangeScene(2);
     }
 
     public void Dead()

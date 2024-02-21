@@ -17,6 +17,9 @@ public class LevelManager : MonoBehaviour
 
     int m_CurrentSceneIndex;
 
+    public UnityEvent SceneChanged;
+    public UnityEvent PlayerLoaded;
+
     void Awake()
     {
         if (Instance == null)
@@ -37,40 +40,31 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(AsyncLoad(2, SetActiveAndComplete));
     }
 
-    public void Load(int id)
+    void Update()
     {
-        StartCoroutine(AsyncLoad(id, Complete));
+        if (Input.GetKeyDown(KeyCode.F1))
+            m_DebugMenu.SetActive(!m_DebugMenu.activeSelf);
     }
 
-    public void Unload(int id)
-    {
-        StartCoroutine(AsyncUnLoad(SceneManager.GetSceneByBuildIndex(id)));
-    }
+    public static void LoadPlayer() => Instance.StartCoroutine(Instance.AsyncLoad(1, (AsyncOperation operation) => { Instance.PlayerLoaded.Invoke(); }));
 
-    public void ChangeScene(int id)
+    public static void Unload() => Instance.StartCoroutine(Instance.AsyncUnLoad(SceneManager.GetSceneByBuildIndex(1)));
+
+    public static void ChangeScene(int id)
     {
-        StartCoroutine(AsyncUnLoad(SceneManager.GetActiveScene()));
-        m_CurrentSceneIndex = id;
-        StartCoroutine(AsyncLoad(id, SetActiveAndComplete));
+        Instance.StartCoroutine(Instance.AsyncUnLoad(SceneManager.GetActiveScene()));
+        Instance.m_CurrentSceneIndex = id;
+        Instance.StartCoroutine(Instance.AsyncLoad(id, Instance.SetActiveAndComplete));
     }
 
     void SetActiveAndComplete(AsyncOperation operation)
     {
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(m_CurrentSceneIndex));
-        Complete(operation);
-    }
-
-    void Complete(AsyncOperation operation)
-    {
+        if (m_CurrentSceneIndex != 2)
+            SceneChanged.Invoke();
         m_LoadScreen.SetActive(false);
         m_LoadBar.fillAmount = 0;
         m_LoadPercent.text = "0%";       
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F1))
-            m_DebugMenu.SetActive(!m_DebugMenu.activeSelf);
     }
 
     public void DebugChangeScene(int scene)
@@ -83,12 +77,12 @@ public class LevelManager : MonoBehaviour
         if (m_CurrentSceneIndex == 2)
         {
             ChangeScene(scene);
-            Load(1);
+            LoadPlayer();
         }
 
         else if (scene == 2)
         {
-            Unload(1);
+            Unload();
             ChangeScene(scene);
         }
 

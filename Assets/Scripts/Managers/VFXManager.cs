@@ -17,9 +17,9 @@ public class VFXManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public GameObject SpawnExplosion(Vector3 position, float lifeSpan = 0.5f)
+    public static GameObject SpawnExplosion(Vector3 position, float lifeSpan = 0.5f)
     {
-        GameObject ExplosionRef = Instantiate(m_Explosion, position, Quaternion.identity);
+        GameObject ExplosionRef = Instantiate(Instance.m_Explosion, position, Quaternion.identity);
 
         Destroy(ExplosionRef, lifeSpan);
 

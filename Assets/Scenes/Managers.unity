@@ -2603,6 +2603,36 @@ MonoBehaviour:
   m_DebugMenu: {fileID: 1389186387}
   m_LoadBar: {fileID: 1422341314}
   m_LoadPercent: {fileID: 1533578446}
+  SceneChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 288835506}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: UpdateSpawnLocation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  PlayerLoaded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 288835506}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: MovePlayerToSpawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &2063186336
 Transform:
   m_ObjectHideFlags: 0

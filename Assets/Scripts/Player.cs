@@ -121,7 +121,7 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
         if (m_Health <= 0f)
         { 
             GetComponent<SpriteRenderer>().enabled = false;
-            VFXManager.Instance.SpawnExplosion(transform.position);
+            VFXManager.SpawnExplosion(transform.position);
             m_PlayerUI.Dead();
             StartCoroutine(DeathReset());
         }
@@ -168,6 +168,8 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
         Time.timeScale = 1f;
         GetComponent<SpriteRenderer>().enabled = true;
 
-        LevelManager.Instance.ChangeScene(3);
+        m_Health = m_MaxHealth;
+
+        LevelManager.ChangeScene(3);
     }
 }
