@@ -26,11 +26,10 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
 
     [SerializeField] PlayerUI m_PlayerUI;
     [SerializeField] float m_MaxHealth;
-    [SerializeField] WeaponSystem m_WeaponPrefab;
+    [SerializeField] WeaponSystem m_WeaponRef;
     [SerializeField] Light2D m_Light;
 
     float m_Health;
-    GameObject m_WeaponRef;
     bool m_bPaused;
     bool m_bWeaponSafty;
     
@@ -50,7 +49,6 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
     {
         m_bPaused = false;
         m_bWeaponSafty = false;
-        m_WeaponRef = Instantiate(m_WeaponPrefab, transform).gameObject;
         m_Health = m_MaxHealth;
     }
 
@@ -116,13 +114,14 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
 
     public void Damage(float damage)
     {
+        SoundManager.PlaySound(Sounds.PlayerHurt);
+
         m_Health -= damage;
 
         if (m_Health <= 0f)
         { 
             GetComponent<SpriteRenderer>().enabled = false;
             VFXManager.SpawnExplosion(transform.position);
-            m_PlayerUI.Dead();
             StartCoroutine(DeathReset());
         }
 
@@ -142,10 +141,8 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
 
     public void EnterSafe()
     {
-        if (m_WeaponRef != null)
-            Destroy(m_WeaponRef);
+        m_WeaponRef.gameObject.SetActive(false);
      
-        transform.position = new Vector3(0,0,0);
         m_bWeaponSafty = true;
         m_PlayerUI.transform.Find("UIHider").gameObject.SetActive(false);
         m_Light.gameObject.SetActive(false);
@@ -153,22 +150,31 @@ public class Player : MonoBehaviour, IWeaponSystem, IDamage
 
     public void ExitSafe()
     {
-        m_WeaponRef = Instantiate(m_WeaponPrefab, transform).gameObject;
+        m_WeaponRef.gameObject.SetActive(true);
 
-        transform.position = new Vector3(0,0,0);
         m_PlayerUI.transform.Find("UIHider").gameObject.SetActive(true);
         m_bWeaponSafty = false;
         m_Light.gameObject.SetActive(true);
     }
 
+    public void AddAmmo(int ammount)
+    {
+        m_WeaponRef.TotalAmmo += ammount;
+    }
+
     IEnumerator DeathReset()
     {
+        m_PlayerUI.Dead();
+
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(5);
         Time.timeScale = 1f;
+
+        m_PlayerUI.Dead();
         GetComponent<SpriteRenderer>().enabled = true;
 
         m_Health = m_MaxHealth;
+        m_PlayerUI.HealthUpdate(m_Health);
 
         LevelManager.ChangeScene(3);
     }

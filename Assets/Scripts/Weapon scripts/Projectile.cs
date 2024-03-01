@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float m_Damage;
+    public float Damage;
 
     void Reset()
     {
@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<IDamage>() != null)
         {
-            collision.gameObject.GetComponent<IDamage>()?.Damage(m_Damage);
+            collision.gameObject.GetComponent<IDamage>().Damage(Damage);
         }
 
         Destroy(gameObject);

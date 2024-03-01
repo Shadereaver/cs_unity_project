@@ -8,7 +8,12 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] GameObject m_Pause;
     [SerializeField] GameObject m_DeathScreen;
 
-   public void HealthUpdate(float health)
+    void Awake()
+    {
+        transform.Find("Pause/Settings/Toggle").GetComponent<Toggle>().onValueChanged.AddListener(SoundManager.ToggleBGM);
+    }
+
+    public void HealthUpdate(float health)
     {
         m_PlayerHealth.fillAmount = health / 100;
     }

@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour, IDamage
 {
     [SerializeField] Collider2D m_AttackRadius;
     [SerializeField] float m_MaxHealth;
+    [SerializeField] float m_Damage;
+    [SerializeField] float m_AttackSpeed;
+    [SerializeField] Image m_HealthBar;
 
     float m_Health;
     Transform m_Target;
@@ -52,16 +56,20 @@ public class Enemy : MonoBehaviour, IDamage
 
             if (collision.GetComponent<IDamage>() != null)
             {
-                collision.GetComponent<IDamage>()?.Damage(10);
+                collision.GetComponent<IDamage>().Damage(m_Damage);
             }
         }
     }
 
     public void Damage(float damage)
     {
+        SoundManager.PlaySound(Sounds.EnemyHurt);
+
         m_Health -= damage;
 
-        if (m_Health < 0) 
+        m_HealthBar.fillAmount = m_Health / m_MaxHealth;
+
+        if (m_Health <= 0) 
         {
             Destroy(gameObject);
         }
@@ -75,7 +83,7 @@ public class Enemy : MonoBehaviour, IDamage
     IEnumerator CoolDown()
     {
         m_CoolDown = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(m_AttackSpeed);
         m_CoolDown = false;
     }
 }

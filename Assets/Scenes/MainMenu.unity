@@ -588,6 +588,18 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8663033368652776053, guid: 16762d29822ef314dafae354e0bd9471, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1671307742}
+    - target: {fileID: 8663033368652776053, guid: 16762d29822ef314dafae354e0bd9471, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663033368652776053, guid: 16762d29822ef314dafae354e0bd9471, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 9144719064310297774, guid: 16762d29822ef314dafae354e0bd9471, type: 3}
       propertyPath: m_Name
       value: Settings
@@ -604,6 +616,11 @@ PrefabInstance:
 --- !u!224 &1089268604 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 575921466017890768, guid: 16762d29822ef314dafae354e0bd9471, type: 3}
+  m_PrefabInstance: {fileID: 1089268603}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1089268605 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9144719064310297774, guid: 16762d29822ef314dafae354e0bd9471, type: 3}
   m_PrefabInstance: {fileID: 1089268603}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1155220646
@@ -1043,7 +1060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105522192b4729d48bedd82361a540de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SettingsPanel: {fileID: 0}
+  m_SettingsPanel: {fileID: 1089268605}
 --- !u!4 &1671307743
 Transform:
   m_ObjectHideFlags: 0

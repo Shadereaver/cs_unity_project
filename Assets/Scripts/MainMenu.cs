@@ -1,8 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] GameObject m_SettingsPanel;
+
+    void Awake()
+    {
+       m_SettingsPanel.transform.Find("Toggle").GetComponent<Toggle>().onValueChanged.AddListener(SoundManager.ToggleBGM);
+    }
 
     public void NewGame()
     {
